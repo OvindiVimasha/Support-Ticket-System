@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../../assets/Logo.png";
 
 const AuthLayout = ({ children, illustration, title, subtitle }) => {
   return (
@@ -76,7 +77,14 @@ const AuthLayout = ({ children, illustration, title, subtitle }) => {
 
       {/* Right Section - Form Area */}
       <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 lg:p-10 bg-[#F9FBFC] overflow-y-auto">
-        <div className="w-full max-w-[520px] bg-white rounded-[32px] px-10 lg:px-14 py-10 lg:py-12 border-[0.5px] border-[#E6F4FB] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)]">
+        <div className="w-full max-w-[520px] bg-white rounded-[32px] px-10 lg:px-14 py-8 lg:py-10 border-[0.5px] border-[#E6F4FB] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)]">
+          <div className="flex justify-center mb-6 lg:mb-8">
+            <img
+              src={Logo}
+              alt="Tickfy Logo"
+              className="h-8 lg:h-10 object-contain"
+            />
+          </div>
           {children}
         </div>
       </div>
