@@ -2,6 +2,8 @@ import React from "react";
 import { LayoutDashboard, ListTodo, FilePlus } from "lucide-react";
 import { cn } from "../../lib/utils";
 
+import Logo from "../../assets/Logo.png";
+
 const Sidebar = ({ activePage, onPageChange }) => {
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -11,10 +13,8 @@ const Sidebar = ({ activePage, onPageChange }) => {
 
   return (
     <div className="w-[240px] bg-primary-default min-h-screen flex flex-col shrink-0">
-      <div className="p-10 pb-16">
-        <div className="flex items-center gap-2 text-white font-bold text-xl invisible">
-          Support System
-        </div>
+      <div className="p-8 pb-12 flex justify-center">
+        <img src={Logo} alt="Tickfy Logo" className="h-9 object-contain" />
       </div>
 
       <nav className="flex-1 space-y-1">
@@ -50,12 +50,18 @@ const Sidebar = ({ activePage, onPageChange }) => {
         ))}
       </nav>
 
-      <div className="p-6 pt-10 border-t border-white/10">
+      <button
+        onClick={() => onPageChange("profile")}
+        className={cn(
+          "p-6 pt-10 border-t border-white/10 text-left transition-all hover:bg-white/5 w-full",
+          activePage === "profile" && "bg-white/10",
+        )}
+      >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-bold text-[13px] shrink-0">
             PW
           </div>
-          <div className="flex flex-col overflow-hidden">
+          <div className="flex flex-col overflow-hidden text-left">
             <span className="text-white text-[14px] font-semibold truncate">
               Poppy Wright
             </span>
@@ -64,7 +70,7 @@ const Sidebar = ({ activePage, onPageChange }) => {
             </span>
           </div>
         </div>
-      </div>
+      </button>
     </div>
   );
 };
