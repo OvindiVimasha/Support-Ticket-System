@@ -1,10 +1,6 @@
 import React from "react";
 import { Search } from "lucide-react";
-<<<<<<< Updated upstream
-import { Input } from "../ui/Input";
-=======
 import { Input } from "./Input";
->>>>>>> Stashed changes
 
 const Header = ({ title, subtitle, showSearch = true }) => {
   return (
