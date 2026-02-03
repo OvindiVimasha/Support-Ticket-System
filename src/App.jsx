@@ -2,21 +2,31 @@ import React from "react";
 import { useState } from "react";
 import Sidebar from "./components/ui/SideBar";
 import Dashboard from "./pages/Dashboard";
+import CreateTicket from "./pages/CreateTicket";
 import AllTickets from "./pages/AllTickets";
 
 function App() {
-  // 1. Re-add state to track which page is active
   const [activePage, setActivePage] = useState("dashboard");
-
+  // Helper function to decide which page content to show
+  const renderPage = () => {
+    switch (activePage) {
+      case "dashboard":
+        return <Dashboard />;
+      case "all-tickets":
+        return <AllTickets />;
+      case "create-ticket":
+        return <CreateTicket />;
+      default:
+        return <Dashboard />;
+    }
+  };
   return (
     <div className="flex min-h-screen font-sans">
-      {/* 2. Pass the state and the setter to the Sidebar */}
       <Sidebar activePage={activePage} onPageChange={setActivePage} />
 
-      {/* 3. Use a conditional check to switch between the two pages */}
-      {activePage === "dashboard" ? <Dashboard /> : <AllTickets />}
+      {/* Dynamic content area */}
+      {renderPage()}
     </div>
   );
 }
-
 export default App;
