@@ -1,6 +1,10 @@
 import React from "react";
 import { X } from "lucide-react";
+<<<<<<< Updated upstream
 import { Button } from "../ui/Button";
+=======
+import { Button } from "./Button";
+>>>>>>> Stashed changes
 
 // Dropdown Options from Semantic Variables
 export const STATUS_OPTIONS = ["Open", "In Progress", "Resolved", "Closed"];
