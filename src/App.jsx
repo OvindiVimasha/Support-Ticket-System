@@ -6,11 +6,25 @@ import CreateTicket from "./pages/CreateTicket";
 import AllTickets from "./pages/AllTickets";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Toast from "./components/ui/Toast";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedTicketId, setSelectedTicketId] = useState(null);
+  const [toast, setToast] = useState({
+    isVisible: false,
+    message: "",
+    type: "success",
+  });
+
+  const showToast = (message, type = "success") => {
+    setToast({ isVisible: true, message, type });
+  };
+
+  const hideToast = () => {
+    setToast((prev) => ({ ...prev, isVisible: false }));
+  };
 
   const handleTicketSelect = (id) => {
     setSelectedTicketId(id);
@@ -25,10 +39,6 @@ function App() {
         return <AllTickets onSelectTicket={handleTicketSelect} />;
       case "create-ticket":
         return <CreateTicket />;
-      case "profile":
-        return <Profile />;
-      case "ticket-details":
-        return <TicketDetails ticketId={selectedTicketId} />;
       default:
         return <Dashboard onSelectTicket={handleTicketSelect} />;
     }
@@ -38,17 +48,31 @@ function App() {
   if (!isAuthenticated) {
     if (activePage === "signup") {
       return (
-        <Signup
-          onNavigateToLogin={() => setActivePage("login")}
-          onSignup={() => setIsAuthenticated(true)}
-        />
+        <>
+          <Signup
+            onNavigateToLogin={() => setActivePage("login")}
+            onSignup={() => {
+              setActivePage("login");
+              showToast("Account created! Please sign in.", "success");
+            }}
+            showToast={showToast}
+          />
+          <Toast {...toast} onClose={hideToast} />
+        </>
       );
     }
     return (
-      <Login
-        onNavigateToSignup={() => setActivePage("signup")}
-        onLogin={() => setIsAuthenticated(true)}
-      />
+      <>
+        <Login
+          onNavigateToSignup={() => setActivePage("signup")}
+          onLogin={() => {
+            setIsAuthenticated(true);
+            showToast("Welcome back!", "success");
+          }}
+          showToast={showToast}
+        />
+        <Toast {...toast} onClose={hideToast} />
+      </>
     );
   }
 
@@ -56,6 +80,7 @@ function App() {
     <div className="flex min-h-screen font-sans">
       <Sidebar activePage={activePage} onPageChange={setActivePage} />
       {renderPage()}
+      <Toast {...toast} onClose={hideToast} />
     </div>
   );
 }
