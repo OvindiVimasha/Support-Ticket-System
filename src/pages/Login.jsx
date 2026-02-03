@@ -1,11 +1,49 @@
 import React from "react";
+import { useState } from "react";
 import AuthLayout from "../components/ui/AuthLayout";
 import { Input, Label } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 import { ArrowRight, Eye } from "lucide-react";
 import SigninIllustration from "../assets/Signin.png";
 
-const Login = ({ onNavigateToSignup, onLogin }) => {
+const Login = ({ onNavigateToSignup, onLogin, showToast }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+
+    if (!email) {
+      newErrors.email = "Email address is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!password) {
+      newErrors.password = "Password is required";
+    } else if (password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (
+      !/(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;<>,.?/~`-])/.test(
+        password,
+      )
+    ) {
+      newErrors.password = "Include letters, numbers and special characters";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      showToast("Please fix the errors in the form", "error");
+      return;
+    }
+
+    // Simulating a successful login
+    onLogin();
+  };
+
   return (
     <AuthLayout
       illustration={SigninIllustration}
@@ -21,18 +59,27 @@ const Login = ({ onNavigateToSignup, onLogin }) => {
         </p>
       </div>
 
-      <form
-        className="space-y-5 lg:space-y-6"
-        onSubmit={(e) => e.preventDefault()}
-      >
+      <form className="space-y-5 lg:space-y-6" onSubmit={handleLogin}>
         <div className="space-y-1.5 lg:space-y-2">
           <Label className="text-[13px] lg:text-[14px] font-medium text-[#333333] ml-1">
             Email Address
           </Label>
           <Input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (errors.email) setErrors((prev) => ({ ...prev, email: null }));
+            }}
             placeholder="Enter your email..."
-            className="h-11 lg:h-[52px] bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0090D4]/20 rounded-xl text-[14px] px-5 placeholder:text-[#999999]/70"
+            error={!!errors.email}
+            className="h-11 lg:h-[52px] bg-[#F8FAFC] rounded-xl text-[14px] px-5 placeholder:text-[#999999]/70"
           />
+          {errors.email && (
+            <p className="text-[12px] text-[#F44336] ml-1 mt-1 font-medium">
+              {errors.email}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5 lg:space-y-2">
@@ -41,17 +88,34 @@ const Login = ({ onNavigateToSignup, onLogin }) => {
           </Label>
           <div className="relative">
             <Input
-              type="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password)
+                  setErrors((prev) => ({ ...prev, password: null }));
+              }}
               placeholder="********"
-              className="h-11 lg:h-[52px] bg-[#F8FAFC] border-transparent focus:bg-white focus:border-[#0090D4]/20 rounded-xl text-[14px] px-5 pr-14 placeholder:text-[#999999]/70"
+              error={!!errors.password}
+              className="h-11 lg:h-[52px] bg-[#F8FAFC] rounded-xl text-[14px] px-5 pr-14 placeholder:text-[#999999]/70"
             />
             <button
               type="button"
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute right-5 top-1/2 -translate-y-1/2 text-[#333333] hover:text-[#000000] opacity-80"
             >
-              <Eye className="w-5 h-5" />
+              {showPassword ? (
+                <EyeOff className="w-5 h-5" />
+              ) : (
+                <Eye className="w-5 h-5" />
+              )}
             </button>
           </div>
+          {errors.password && (
+            <p className="text-[12px] text-[#F44336] ml-1 mt-1 font-medium">
+              {errors.password}
+            </p>
+          )}
           <div className="mt-2 lg:mt-3 flex justify-end">
             <button
               type="button"
@@ -64,7 +128,7 @@ const Login = ({ onNavigateToSignup, onLogin }) => {
 
         <div className="pt-2 lg:pt-4 flex justify-center">
           <Button
-            onClick={onLogin}
+            type="submit"
             className="w-full max-w-[300px] h-10 lg:h-[48px] bg-[#0090D4] hover:bg-[#0072A8] text-white rounded-xl text-[15px] lg:text-[16px] font-medium flex items-center justify-center gap-3 transition-all shadow-lg shadow-[#0090D4]/20"
           >
             Sign in
@@ -76,6 +140,7 @@ const Login = ({ onNavigateToSignup, onLogin }) => {
           <p className="text-[13px] lg:text-[14px] text-[#333333] font-medium opacity-80">
             Don't have an account ?{" "}
             <button
+              type="button"
               onClick={onNavigateToSignup}
               className="font-medium text-[#0090D4] hover:underline"
             >
