@@ -7,6 +7,7 @@ import AllTickets from "./pages/AllTickets";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Toast from "./components/ui/Toast";
+import TicketDetails from "./pages/TicketDetails";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -39,6 +40,8 @@ function App() {
         return <AllTickets onSelectTicket={handleTicketSelect} />;
       case "create-ticket":
         return <CreateTicket />;
+      case "ticket-details":
+        return <TicketDetails ticketId={selectedTicketId} />;
       default:
         return <Dashboard onSelectTicket={handleTicketSelect} />;
     }

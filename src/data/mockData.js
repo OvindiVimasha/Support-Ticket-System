@@ -38,23 +38,49 @@ export const MOCK_TICKETS = [
     {
         id: 'Tkt -0011',
         title: 'Billing issue - Double charge',
-        description: 'I was charged twice for my subscription this month. Please refund the extra amount.',
+        description: 'I was charged twice for my subscription this month. Please refund the extra amount. I noticed two separate entries in my bank statement for the same transaction ID.',
         status: 'open',
         priority: 'medium',
         category: 'Billing',
         count: 1,
         time: '5 hours ago',
-        comments: []
+        comments: [
+            {
+                id: 'c3',
+                author: 'Finance Team',
+                content: 'We noticed the duplicate transaction. Our team is processing the refund now. It should reflect in your account within 3-5 business days.',
+                time: 'Jan 17, 2026 10:30 AM',
+                avatar: 'FT',
+                isAgent: true
+            }
+        ]
     },
     {
         id: 'Tkt -0012',
         title: 'How to change password?',
-        description: 'I cannot find the option to change my account password in the profile settings.',
+        description: 'I cannot find the option to change my account password in the profile settings. I have looked through the entire settings page but the security tab seems to be missing.',
         status: 'resolved',
         priority: 'low',
         category: 'Account',
-        count: 4,
+        count: 2,
         time: 'Yesterday',
-        comments: []
+        comments: [
+            {
+                id: 'c4',
+                author: 'Support Agent',
+                content: 'You can change your password by going to Profile > Security > Change Password. I have attached a guide link below.',
+                time: 'Jan 17, 2026 02:00 PM',
+                avatar: 'SA',
+                isAgent: true
+            },
+            {
+                id: 'c5',
+                author: 'Poppy Wright',
+                content: 'Found it! Thank you for the quick help.',
+                time: 'Jan 17, 2026 03:30 PM',
+                avatar: 'PW',
+                isAgent: false
+            }
+        ]
     }
 ]

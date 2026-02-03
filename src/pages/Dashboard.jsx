@@ -5,6 +5,7 @@ import Pagination from "../components/ui/Pagination";
 import TicketCard from "../components/ui/TicketCard";
 import { Ticket, AlertCircle, Clock, CheckCircle2 } from "lucide-react";
 import { cn } from "../lib/utils";
+import { MOCK_TICKETS } from "../data/mockData";
 
 const StatCard = ({ title, value, icon: Icon, colorClass, iconColor }) => (
   <div
@@ -30,7 +31,7 @@ const StatCard = ({ title, value, icon: Icon, colorClass, iconColor }) => (
   </div>
 );
 
-const Dashboard = () => {
+const Dashboard = ({ onSelectTicket }) => {
   const stats = [
     {
       title: "Total Tickets",
@@ -62,53 +63,6 @@ const Dashboard = () => {
     },
   ];
 
-  const tickets = [
-    {
-      id: "Tkt - 0010",
-      priority: "Urgent",
-      status: "open",
-      title: "Database connection timeout",
-      description:
-        "Severe latency observed on all database queries in the production environment.",
-      comments: 12,
-      category: "Technical",
-      time: "15 mins ago",
-    },
-    {
-      id: "Tkt - 0011",
-      priority: "High",
-      status: "In Progress",
-      title: "Unable to access dashboard after login",
-      description:
-        "I am experiencing issues accessing the main dashboard after successfully logging in.",
-      comments: 2,
-      category: "Account & Access",
-      time: "2 hours ago",
-    },
-    {
-      id: "Tkt - 0012",
-      priority: "Medium",
-      status: "resolved",
-      title: "Payment gateway integration error",
-      description:
-        "The payment gateway fails to redirect back to the app after successful payment.",
-      comments: 5,
-      category: "Billing & Payments",
-      time: "4 hours ago",
-    },
-    {
-      id: "Tkt - 0013",
-      priority: "Low",
-      status: "closed",
-      title: "Typo on landing page header",
-      description:
-        "There is a small typo in the hero section subtitle on the landing page.",
-      comments: 0,
-      category: "General Inquiry",
-      time: "1 day ago",
-    },
-  ];
-
   return (
     <div className="flex-1 flex flex-col bg-[#F9FBFC] h-screen overflow-hidden">
       <Header
@@ -130,8 +84,12 @@ const Dashboard = () => {
         </h2>
 
         <div className="grid grid-cols-1 gap-4">
-          {tickets.map((ticket, index) => (
-            <TicketCard key={index} ticket={ticket} />
+          {MOCK_TICKETS.map((ticket) => (
+            <TicketCard
+              key={ticket.id}
+              ticket={ticket}
+              onClick={onSelectTicket}
+            />
           ))}
         </div>
 
