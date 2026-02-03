@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import React from "react";
 import { Search } from "lucide-react";
 import { Input } from "./Input";
@@ -31,4 +29,3 @@ const Header = ({ title, subtitle, showSearch = true }) => {
 };
 
 export default Header;
->>>>>>> Stashed changes

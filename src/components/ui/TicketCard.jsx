@@ -1,7 +1,7 @@
 import React from "react";
 import { MessageSquare, Clock } from "lucide-react";
-import { Badge } from "./ui/Badge";
-import { cn } from "../lib/utils";
+import { Badge } from "./Badge";
+import { cn } from "../../lib/utils";
 
 const TicketCard = ({ ticket }) => {
   return (
