@@ -41,7 +41,7 @@ const Login = ({ onNavigateToSignup, onLogin, showToast }) => {
     }
 
     // Simulating a successful login
-    onLogin();
+    onLogin({ email });
   };
 
   return (

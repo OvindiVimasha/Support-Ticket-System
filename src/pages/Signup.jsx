@@ -53,7 +53,7 @@ const Signup = ({ onNavigateToLogin, onSignup, showToast }) => {
       return;
     }
 
-    onSignup();
+    onSignup({ fullName, email });
   };
 
   return (
