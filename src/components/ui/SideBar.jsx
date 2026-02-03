@@ -1,6 +1,6 @@
 import React from "react";
 import { LayoutDashboard, ListTodo, FilePlus } from "lucide-react";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 
 const Sidebar = ({ activePage, onPageChange }) => {
   const menuItems = [
