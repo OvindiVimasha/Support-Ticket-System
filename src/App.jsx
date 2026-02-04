@@ -9,16 +9,23 @@ import Signup from "./pages/Signup";
 import Toast from "./components/ui/Toast";
 import TicketDetails from "./pages/TicketDetails";
 import Profile from "./pages/Profile";
+import Loading from "./components/ui/Loading";
+import ErrorState from "./components/ui/ErrorState";
+import EmptyState from "./components/ui/EmptyState";
 
 import { MOCK_TICKETS, MOCK_USER } from "./data/mockData";
 
 function App() {
-  const [activePage, setActivePage] = useState(
-    () => localStorage.getItem("activePage") || "dashboard",
-  );
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => localStorage.getItem("isAuthenticated") === "true",
   );
+  const [activePage, setActivePage] = useState(() => {
+    const saved = localStorage.getItem("activePage");
+    if (isAuthenticated && (!saved || saved === "login" || saved === "signup")) {
+      return "dashboard";
+    }
+    return saved || "dashboard";
+  });
   const [selectedTicketId, setSelectedTicketId] = useState(
     () => localStorage.getItem("selectedTicketId") || null,
   );
@@ -35,6 +42,53 @@ function App() {
     message: "",
     type: "success",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    search: "",
+    status: "",
+    priority: "",
+    category: "",
+  });
+
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      search: "",
+      status: "",
+      priority: "",
+      category: "",
+    });
+  };
+
+  const filteredTickets = tickets.filter((ticket) => {
+    const matchesSearch =
+      ticket.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      ticket.id.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesStatus = filters.status ? ticket.status === filters.status : true;
+    const matchesPriority = filters.priority
+      ? ticket.priority === filters.priority
+      : true;
+    const matchesCategory = filters.category
+      ? ticket.category.toLowerCase() === filters.category.toLowerCase()
+      : true;
+
+    return matchesSearch && matchesStatus && matchesPriority && matchesCategory;
+  });
+
+  // Initial loading simulation
+  React.useEffect(() => {
+    if (isAuthenticated && !isLoading && !error) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated]);
 
   // Persistence Logic
   React.useEffect(() => {
@@ -110,15 +164,43 @@ function App() {
   };
 
   const renderPage = () => {
+    if (isLoading) {
+      return (
+        <div className="flex-1 flex items-center justify-center bg-[#F9FBFC]">
+          <Loading size="lg" />
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="flex-1 flex items-center justify-center bg-[#F9FBFC] p-12">
+          <ErrorState
+            title="Unable to load dashboard"
+            message={error}
+            onRetry={() => {
+              setError(null);
+              setIsLoading(true);
+              setTimeout(() => setIsLoading(false), 1000);
+            }}
+          />
+        </div>
+      );
+    }
+
+    const pageProps = {
+      tickets: filteredTickets,
+      onSelectTicket: handleTicketSelect,
+      filters: filters,
+      onFilterChange: handleFilterChange,
+      onClearFilters: handleClearFilters,
+    };
+
     switch (activePage) {
       case "dashboard":
-        return (
-          <Dashboard tickets={tickets} onSelectTicket={handleTicketSelect} />
-        );
+        return <Dashboard {...pageProps} />;
       case "all-tickets":
-        return (
-          <AllTickets tickets={tickets} onSelectTicket={handleTicketSelect} />
-        );
+        return <AllTickets {...pageProps} />;
       case "create-ticket":
         return (
           <CreateTicket
@@ -137,9 +219,7 @@ function App() {
       case "ticket-details":
         return <TicketDetails ticketId={selectedTicketId} tickets={tickets} />;
       default:
-        return (
-          <Dashboard tickets={tickets} onSelectTicket={handleTicketSelect} />
-        );
+        return <Dashboard {...pageProps} />;
     }
   };
 
