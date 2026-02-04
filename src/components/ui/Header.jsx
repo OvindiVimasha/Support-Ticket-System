@@ -2,7 +2,7 @@ import React from "react";
 import { Search } from "lucide-react";
 import { Input } from "./Input";
 
-const Header = ({ title, subtitle, showSearch = true }) => {
+const Header = ({ title, subtitle, showSearch = true, searchValue = "", onSearchChange }) => {
   return (
     <div className="bg-white border-b border-border-default px-12 py-5 flex justify-between items-center mb-8">
       <div>
@@ -21,6 +21,8 @@ const Header = ({ title, subtitle, showSearch = true }) => {
           <Input
             className="pl-11 h-10 text-h6 placeholder:text-text-caption border-border-default"
             placeholder="Search here ..."
+            value={searchValue}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
       )}
