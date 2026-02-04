@@ -147,6 +147,20 @@ function App() {
     showToast("Welcome back!", "success");
   };
 
+  const handleAddComment = (id, newComment) => {
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
+        ticket.id === id
+          ? {
+            ...ticket,
+            comments: [...ticket.comments, newComment],
+            count: (ticket.count || ticket.comments.length) + 1,
+          }
+          : ticket,
+      ),
+    );
+  };
+
   const handleSignup = (signupUser) => {
     // We don't authenticate yet, just save user data and redirect to login
     setUser({
@@ -217,7 +231,14 @@ function App() {
           />
         );
       case "ticket-details":
-        return <TicketDetails ticketId={selectedTicketId} tickets={tickets} />;
+        return (
+          <TicketDetails
+            ticketId={selectedTicketId}
+            tickets={tickets}
+            user={user}
+            onAddComment={handleAddComment}
+          />
+        );
       default:
         return <Dashboard {...pageProps} />;
     }

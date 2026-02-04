@@ -124,8 +124,8 @@ const CreateTicket = ({ onCreateTicket, onCancel }) => {
                   >
                     <option value="">Priority</option>
                     {PRIORITY_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
                       </option>
                     ))}
                   </select>
@@ -180,8 +180,8 @@ const CreateTicket = ({ onCreateTicket, onCancel }) => {
                   >
                     <option value="">Category</option>
                     {CATEGORY_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
                       </option>
                     ))}
                   </select>
