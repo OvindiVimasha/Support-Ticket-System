@@ -1,126 +1,115 @@
+<br />
 <div align="center">
+  <a href="https://github.com/OvindiVimasha/Support-Ticket-System">
+    <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/ticket.svg" alt="Logo" width="100" height="100" style="background: linear-gradient(135deg, #15709B, #B2DFF1); padding: 15px; border-radius: 24px;">
+  </a>
 
-  <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/ticket.svg" width="80" height="80" alt="Logo" />
+  <h1 align="center">Support Ticket System</h1>
 
-  # 🎫 Mini Support Ticket System
-  ### A Premium, High-Performance Ticketing Experience
+  <p align="center">
+    <b>A Masterclass in Modern Frontend Engineering</b>
+    <br />
+    <a href="https://www.figma.com/file/..."><strong>Explore Figma Design »</strong></a>
+    <br />
+    <br />
+    <a href="https://...">View Demo</a>
+    ·
+    <a href="https://github.com/OvindiVimasha/Support-Ticket-System/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/OvindiVimasha/Support-Ticket-System/pulls">Request Feature</a>
+  </p>
 
-  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-  [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-  [![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-FFD700?style=for-the-badge&logo=lucide&logoColor=black)](https://lucide.dev/)
-
-  ---
-
-  **A modern, pixel-perfect frontend implementation of a support ticket management system.**  
-  *Designed in Figma. Built for performance. Optimized for UX.*
-
-  [Explore Figma](https://www.figma.com/file/...) • [View Demo](https://...) • [Report Bug](https://github.com/OvindiVimasha/Support-Ticket-System/issues)
-
+  <p align="center">
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+    <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+    <img src="https://img.shields.io/badge/Status-Complete-success?style=for-the-badge" />
+  </p>
 </div>
 
-## 📖 Table of Contents
-- [✨ Key Features](#-key-features)
-- [🎨 Design Language](#-design-language)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🚀 Quick Start](#-quick-start)
-- [📸 interface Showcase](#-interface-showcase)
-- [✅ Quality Checklist](#-quality-checklist)
+---
+
+## 📽️ The Vision
+Transitioning from **Figma precision** to **React performance**. This system isn't just a management tool; it's a carefully crafted user experience designed to handle support workloads with elegance and speed.
 
 ---
 
-## ✨ Key Features
+## � Core Architecture
 
-### 🔐 Seamless Auth Flow
-Complete **Login & Registration** experience with real-time field validation, secure state persistence, and automatic dashboard redirects.
+### �️ Authentication & User Lifecycle
+- **Unified Auth Flow**: Seamless transition between Sign-In and Registration.
+- **Persistent Sessions**: Logged-in state, user profiles, and active pages are all intelligently persisted to `LocalStorage`.
+- **Identity Awareness**: Comments and actions are automatically mapped to the current user's profile and avatar.
 
-### 📊 Intelligent Dashboard
-A data-driven command center featuring:
-- **Stat Cards**: Real-time counters for Open, In-Progress, and Resolved tickets.
-- **Unified Filtering**: Combine Search, Status, Priority, and Category filters simultaneously.
-- **Smart Empty States**: Beautiful, non-intrusive placeholders when no data matches your criteria.
+### 🧩 Advanced Component Layer
+- **Modular Filtering**: Highly optimized component that coordinates Status, Priority, Category, and Search across the app.
+- **Intelligent Page Logic**: A centralized routing system that handles smooth transitions and simulations.
+- **Premium UI Primitives**: Reusable Buttons, Inputs, Badges, and Cards with shared design tokens.
 
-### 💬 Deep Collaboration
-- **Ticket Details**: A full-width view of every support request.
-- **Live Comments**: Post updates that persist across sessions using your unique user profile.
-- **Dynamic Badges**: Instantly see ticket urgency and status at a glance.
-
-### 🌀 Enhanced Feedback
-Premium **Loading**, **Empty**, and **Error** states ensure the user is never left in the dark, featuring custom SVG animations and one-click retry logic.
+### � Narrative State Management
+- **The Loading Experience**: A custom-designed SVG spinner with a 75% arc gradient, perfectly matching the design vision.
+- **The Empty Canvas**: When data is absent, the UI gracefully presents a dashed-container layout with context-aware messaging.
+- **The Recovery Flow**: Integrated error states with "Try Again" mechanisms to ensure reliability.
 
 ---
 
-## 🎨 Design Language
+## 🛠️ Technical Details
 
-This project adheres to a specific **Calming & Professional** design system:
-- **Primary Palette**: `#15709B` (Deep Navy) to `#B2DFF1` (Sky Blue) gradients.
-- **Typography**: Focused on readability with `Inter/Outfit` font families.
-- **Surface**: Glassmorphism touches on cards (`bg-white/30`) for a modern feel.
-- **Corners**: Consistent `24px` to `32px` rounded corners for a soft, friendly UI.
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
+| Category | Technology |
 | :--- | :--- |
-| **React 18** | UI Framework & Component Architecture |
-| **Vite** | Blazing Fast Build Tool & HMR |
-| **Tailwind CSS** | Utility-First Styling & Design System |
-| **Lucide React** | Premium Stroke Icons |
-| **LocalStorage** | Persistence Layer for Auth & Mock Data |
+| **Logic** | React 18 / Hooks (useState, useEffect, useMemo) |
+| **Styling** | Vanilla CSS / Tailwind CSS / `@apply` Architecture |
+| **Icons** | Lucide React (Stroke-width: 1.5 - 2) |
+| **Performance** | Vite / HMR / Optimized Filtering Algorithms |
 
 ---
 
-## 🚀 Quick Start
+## � Interface Showcase
 
-Get the project running locally in under 60 seconds:
+<div align="center">
+  <br />
+  <img src="https://via.placeholder.com/1200x600?text=Premium+Project+Preview" alt="Screenshot" style="border-radius: 32px; border: 2px solid #E0E0E0; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
+  <br />
+  <i>"A design that feels premium, responsive, and alive."</i>
+</div>
+
+---
+
+## 🏁 Installation & Setup
 
 ```bash
-# 1. Clone the repository
+# Clone the masterpiece
 git clone https://github.com/OvindiVimasha/Support-Ticket-System.git
 
-# 2. Travel to the project
+# Move into the workspace
 cd Support-Ticket-System
 
-# 3. Ignite dependencies
+# Install dependencies with speed
 npm install
 
-# 4. Launch development server
+# Start the development experience
 npm run dev
 ```
 
 ---
 
-## 📸 Interface Showcase
-
-<div align="center">
-  <table>
-    <tr>
-      <td width="50%">
-        <img src="https://via.placeholder.com/800x450?text=Dashboard+Preview" alt="Dashboard" />
-        <p align="center"><b>Dynamic Dashboard</b></p>
-      </td>
-      <td width="50%">
-        <img src="https://via.placeholder.com/800x450?text=Details+Preview" alt="Ticket Details" />
-        <p align="center"><b>Rich Ticket Details</b></p>
-      </td>
-    </tr>
-  </table>
-</div>
+## 🏗️ Project Structure
+```text
+src/
+├── components/
+│   └── ui/           # Shared, reusable UI primitives
+├── pages/            # Feature-driven page views
+├── data/             # Mock API & Data Layer
+├── lib/              # Utility functions (cn, etc.)
+└── App.jsx           # Core Routing & State Coordination
+```
 
 ---
 
-## ✅ Quality Checklist
-
-- [x] **Figma Accuracy**: UI matches the design system tokens 1:1.
-- [x] **State Management**: Zero-refresh persistence for comments and tickets.
-- [x] **Error Boundaries**: Comprehensive logic for data failure and empty results.
-- [x] **Responsive**: Optimized for both Desktop and Mobile viewports.
-- [x] **Code Quality**: Modular component structure with reusable UI primitives.
-
----
-
-<div align="center">
-  <sub>Built with ❤️ by <b>Ovindi Vimasha</b></sub>
-</div>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/heart.svg" color="#15709B" width="24" height="24">
+  <br />
+  Designed and Developed by <b>Ovindi Vimasha</b>
+  <br />
+  <i>Powered by the pursuit of clean code.</i>
+</p>
