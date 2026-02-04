@@ -12,7 +12,7 @@
 ## 🎨 Design Vision
 This project is a high-fidelity implementation of a modern support ticketing experience. It prioritizes **visual excellence**, **vibrant aesthetics**, and **fluid user feedback**.
 
-### 🔗 [Figma Design File](https://www.figma.com/design/Zr0suDPeDlpwxlCpT29XeG/Mini-Support-Ticket-System-%E2%80%93-UI?node-id=2-3&t=xJx9cGQLGjnoSnE8-1)
+### 🔗 [Figma Design File](https://www.figma.com/design/Zr0suDPeDlpwxlCpT29XeG/Mini-Support-Ticket-System-%E2%80%93-UI?node-id=348-11959&t=xJx9cGQLGjnoSnE8-1)
 
 ---
 
