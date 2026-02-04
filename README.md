@@ -82,7 +82,8 @@ We handle user interactions through a robust feedback system:
 - **⚠️ Error**: Graceful error boundaries with instant recovery options.
 
 ---
-<img width="1512" height="1042" alt="Sign in" src="https://github.com/user-attachments/assets/720e5f58-c255-4bc2-b650-c9f71571e7ca" />
+<img width="1512" height="1042" alt="Sign in" src="https://github.com/user-attachments/assets/e2ff770f-44a1-4cb3-b124-765fd529d607" />
+
 
 
 
