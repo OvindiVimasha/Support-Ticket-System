@@ -1,10 +1,6 @@
 # 🎫 Mini Support Ticket System
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/lucide-react/lucide/main/icons/ticket.svg" width="100" height="100" />
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
@@ -86,9 +82,7 @@ We handle user interactions through a robust feedback system:
 - **⚠️ Error**: Graceful error boundaries with instant recovery options.
 
 ---
+<img width="1512" height="1042" alt="Sign in" src="https://github.com/user-attachments/assets/720e5f58-c255-4bc2-b650-c9f71571e7ca" />
+<img width="1512" height="1508" alt="Dashboard" src="https://github.com/user-attachments/assets/a1f05073-7a8f-454b-af08-92b99851ba36" />
 
-<div align="center">
-  <b>Built with ❤️ by Ovindi Vimasha</b>
-  <br/>
-  <i>Crafting software that feels like art.</i>
-</div>
+
