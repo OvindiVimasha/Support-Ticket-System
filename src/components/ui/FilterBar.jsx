@@ -3,7 +3,6 @@ import { X } from "lucide-react";
 import { Button } from "./Button";
 
 // Dropdown Options from Semantic Variables
-// Dropdown Options from Semantic Variables
 export const STATUS_OPTIONS = [
   { label: "Open", value: "open" },
   { label: "In Progress", value: "inprogress" },

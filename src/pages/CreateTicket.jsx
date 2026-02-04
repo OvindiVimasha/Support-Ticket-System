@@ -48,8 +48,13 @@ const CreateTicket = () => {
                   >
                     <option value="">Priority</option>
                     {PRIORITY_OPTIONS.map((opt) => (
+<<<<<<< Updated upstream
                       <option key={opt} value={opt.toLowerCase()}>
                         {opt}
+=======
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+>>>>>>> Stashed changes
                       </option>
                     ))}
                   </select>
@@ -84,8 +89,13 @@ const CreateTicket = () => {
                   >
                     <option value="">Category</option>
                     {CATEGORY_OPTIONS.map((opt) => (
+<<<<<<< Updated upstream
                       <option key={opt} value={opt.toLowerCase()}>
                         {opt}
+=======
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+>>>>>>> Stashed changes
                       </option>
                     ))}
                   </select>
