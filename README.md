@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
   <img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
-  <img src="https://img.shields.io/badge/UI/UX-Premium-FF69B4?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/UI/UX-Figma-FF69B4?style=for-the-badge" />
 </p>
 
 ---
