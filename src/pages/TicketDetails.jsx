@@ -7,20 +7,20 @@ import { Textarea } from "../components/ui/Input";
 import { MOCK_TICKETS, MOCK_USER } from "../data/mockData";
 import { cn } from "../lib/utils";
 
-const TicketDetails = ({ ticketId }) => {
+const TicketDetails = ({ ticketId, tickets = [] }) => {
   // Find the ticket by ID, default to the first one if not found
   const initialTicket =
-    MOCK_TICKETS.find((t) => t.id === ticketId) || MOCK_TICKETS[0];
+    tickets.find((t) => t.id === ticketId) || tickets[0] || MOCK_TICKETS[0];
 
   const [comments, setComments] = React.useState(initialTicket.comments);
   const [newComment, setNewComment] = React.useState("");
 
-  // Reset comments when ticketId changes
+  // Reset comments when ticketId or tickets list changes
   React.useEffect(() => {
     const ticket =
-      MOCK_TICKETS.find((t) => t.id === ticketId) || MOCK_TICKETS[0];
+      tickets.find((t) => t.id === ticketId) || tickets[0] || MOCK_TICKETS[0];
     setComments(ticket.comments);
-  }, [ticketId]);
+  }, [ticketId, tickets]);
 
   const handleAddComment = () => {
     if (!newComment.trim()) return;
@@ -44,7 +44,7 @@ const TicketDetails = ({ ticketId }) => {
     <div className="flex-1 flex flex-col bg-[#F9FBFC] h-screen overflow-hidden">
       <Header
         title="Ticket Details"
-        subtitle="Welcome back! Here's an overview of your support tickets."
+        subtitle="Track your support request and communicate directly with our team."
         showSearch={false}
       />
 
