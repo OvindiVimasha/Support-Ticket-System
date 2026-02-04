@@ -6,6 +6,7 @@ import TicketCard from "../components/ui/TicketCard";
 import { Ticket, AlertCircle, Clock, CheckCircle2 } from "lucide-react";
 import { cn } from "../lib/utils";
 import { MOCK_TICKETS } from "../data/mockData";
+import EmptyState from "../components/ui/EmptyState";
 
 const StatCard = ({ title, value, icon: Icon, colorClass, iconColor }) => (
   <div
@@ -31,32 +32,47 @@ const StatCard = ({ title, value, icon: Icon, colorClass, iconColor }) => (
   </div>
 );
 
-const Dashboard = ({ onSelectTicket }) => {
+const Dashboard = ({
+  tickets = [],
+  onSelectTicket,
+  filters,
+  onFilterChange,
+  onClearFilters,
+}) => {
   const stats = [
     {
       title: "Total Tickets",
-      value: "06",
+      value: tickets.length.toString().padStart(2, "0"),
       icon: Ticket,
       colorClass: "bg-white border-border-default",
       iconColor: "text-text-title",
     },
     {
       title: "Open Tickets",
-      value: "03",
+      value: tickets
+        .filter((t) => t.status === "open")
+        .length.toString()
+        .padStart(2, "0"),
       icon: AlertCircle,
       colorClass: "bg-blue-soft border-blue-main/20",
       iconColor: "text-blue-main",
     },
     {
       title: "In Progress",
-      value: "06",
+      value: tickets
+        .filter((t) => t.status === "inprogress")
+        .length.toString()
+        .padStart(2, "0"),
       icon: Clock,
       colorClass: "bg-orange-soft border-orange-main/20",
       iconColor: "text-orange-main",
     },
     {
       title: "Resolved",
-      value: "06",
+      value: tickets
+        .filter((t) => t.status === "resolved")
+        .length.toString()
+        .padStart(2, "0"),
       icon: CheckCircle2,
       colorClass: "bg-green-soft border-green-main/20",
       iconColor: "text-green-main",
@@ -68,6 +84,8 @@ const Dashboard = ({ onSelectTicket }) => {
       <Header
         title="Dashboard"
         subtitle="Welcome back! Here's an overview of your support tickets."
+        searchValue={filters.search}
+        onSearchChange={(value) => onFilterChange("search", value)}
       />
 
       <div className="flex-1 px-12 overflow-y-auto pt-2 pb-10">
@@ -77,20 +95,30 @@ const Dashboard = ({ onSelectTicket }) => {
           ))}
         </div>
 
-        <FilterBar />
+        <FilterBar
+          filters={filters}
+          onFilterChange={onFilterChange}
+          onClearFilters={onClearFilters}
+        />
 
         <h2 className="text-h5 font-bold text-text-title mb-6">
           Recent Tickets
         </h2>
 
         <div className="grid grid-cols-1 gap-4">
-          {MOCK_TICKETS.map((ticket) => (
+          {tickets.slice(0, 5).map((ticket) => (
             <TicketCard
               key={ticket.id}
               ticket={ticket}
               onClick={onSelectTicket}
             />
           ))}
+          {tickets.length === 0 && (
+            <EmptyState
+              title="No tickets found"
+              message="Create your first ticket to get started!"
+            />
+          )}
         </div>
 
         <div className="mt-10">
