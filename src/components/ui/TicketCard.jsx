@@ -32,7 +32,7 @@ const TicketCard = ({ ticket, onClick }) => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-text-subtitle text-[13px] font-medium">
             <MessageSquare className="w-4 h-4" strokeWidth={1.8} />
-            <span>{ticket.count || ticket.comments}</span>
+            <span>{ticket.count ?? ticket.comments?.length ?? 0}</span>
           </div>
           <Badge variant="category" className="h-6 text-[12px]">
             {ticket.category}

@@ -7,38 +7,30 @@ import { Textarea } from "../components/ui/Input";
 import { MOCK_TICKETS, MOCK_USER } from "../data/mockData";
 import { cn } from "../lib/utils";
 
-const TicketDetails = ({ ticketId, tickets = [] }) => {
+const TicketDetails = ({ ticketId, tickets = [], user, onAddComment }) => {
   // Find the ticket by ID, default to the first one if not found
-  const initialTicket =
+  const ticket =
     tickets.find((t) => t.id === ticketId) || tickets[0] || MOCK_TICKETS[0];
 
-  const [comments, setComments] = React.useState(initialTicket.comments);
   const [newComment, setNewComment] = React.useState("");
-
-  // Reset comments when ticketId or tickets list changes
-  React.useEffect(() => {
-    const ticket =
-      tickets.find((t) => t.id === ticketId) || tickets[0] || MOCK_TICKETS[0];
-    setComments(ticket.comments);
-  }, [ticketId, tickets]);
 
   const handleAddComment = () => {
     if (!newComment.trim()) return;
 
     const comment = {
       id: `c${Date.now()}`,
-      author: MOCK_USER.name,
+      author: user?.name || "User",
       content: newComment,
       time: "Just now",
-      avatar: MOCK_USER.avatar,
+      avatar: user?.avatar || "U",
       isAgent: false,
     };
 
-    setComments([...comments, comment]);
+    onAddComment(ticket.id, comment);
     setNewComment("");
   };
 
-  const ticket = initialTicket;
+  const comments = ticket.comments || [];
 
   return (
     <div className="flex-1 flex flex-col bg-[#F9FBFC] h-screen overflow-hidden">
