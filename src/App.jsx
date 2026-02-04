@@ -8,16 +8,96 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Toast from "./components/ui/Toast";
 import TicketDetails from "./pages/TicketDetails";
+import Profile from "./pages/Profile";
+import Loading from "./components/ui/Loading";
+import ErrorState from "./components/ui/ErrorState";
+import EmptyState from "./components/ui/EmptyState";
+
+import { MOCK_TICKETS, MOCK_USER } from "./data/mockData";
 
 function App() {
-  const [activePage, setActivePage] = useState("dashboard");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [selectedTicketId, setSelectedTicketId] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem("isAuthenticated") === "true",
+  );
+  const [activePage, setActivePage] = useState(() => {
+    const saved = localStorage.getItem("activePage");
+    if (isAuthenticated && (!saved || saved === "login" || saved === "signup")) {
+      return "dashboard";
+    }
+    return saved || "dashboard";
+  });
+  const [selectedTicketId, setSelectedTicketId] = useState(
+    () => localStorage.getItem("selectedTicketId") || null,
+  );
+  const [tickets, setTickets] = useState(() => {
+    const saved = localStorage.getItem("tickets");
+    return saved ? JSON.parse(saved) : MOCK_TICKETS;
+  });
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : MOCK_USER;
+  });
   const [toast, setToast] = useState({
     isVisible: false,
     message: "",
     type: "success",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    search: "",
+    status: "",
+    priority: "",
+    category: "",
+  });
+
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      search: "",
+      status: "",
+      priority: "",
+      category: "",
+    });
+  };
+
+  const filteredTickets = tickets.filter((ticket) => {
+    const matchesSearch =
+      ticket.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+      ticket.id.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesStatus = filters.status ? ticket.status === filters.status : true;
+    const matchesPriority = filters.priority
+      ? ticket.priority === filters.priority
+      : true;
+    const matchesCategory = filters.category
+      ? ticket.category.toLowerCase() === filters.category.toLowerCase()
+      : true;
+
+    return matchesSearch && matchesStatus && matchesPriority && matchesCategory;
+  });
+
+  // Initial loading simulation
+  React.useEffect(() => {
+    if (isAuthenticated && !isLoading && !error) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated]);
+
+  // Persistence Logic
+  React.useEffect(() => {
+    localStorage.setItem("activePage", activePage);
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+    localStorage.setItem("selectedTicketId", selectedTicketId || "");
+    localStorage.setItem("tickets", JSON.stringify(tickets));
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [activePage, isAuthenticated, selectedTicketId, tickets, user]);
 
   const showToast = (message, type = "success") => {
     setToast({ isVisible: true, message, type });
@@ -32,8 +112,6 @@ function App() {
     setActivePage("ticket-details");
   };
 
-<<<<<<< Updated upstream
-=======
   const handleCreateTicket = (newTicket) => {
     setTickets([newTicket, ...tickets]);
     setActivePage("dashboard");
@@ -69,20 +147,6 @@ function App() {
     showToast("Welcome back!", "success");
   };
 
-  const handleAddComment = (id, newComment) => {
-    setTickets((prevTickets) =>
-      prevTickets.map((ticket) =>
-        ticket.id === id
-          ? {
-            ...ticket,
-            comments: [...ticket.comments, newComment],
-            count: (ticket.count || ticket.comments.length) + 1,
-          }
-          : ticket,
-      ),
-    );
-  };
-
   const handleSignup = (signupUser) => {
     // We don't authenticate yet, just save user data and redirect to login
     setUser({
@@ -99,30 +163,63 @@ function App() {
     showToast("Account created! Please sign in.", "success");
   };
 
->>>>>>> Stashed changes
   const renderPage = () => {
+    if (isLoading) {
+      return (
+        <div className="flex-1 flex items-center justify-center bg-[#F9FBFC]">
+          <Loading size="lg" />
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="flex-1 flex items-center justify-center bg-[#F9FBFC] p-12">
+          <ErrorState
+            title="Unable to load dashboard"
+            message={error}
+            onRetry={() => {
+              setError(null);
+              setIsLoading(true);
+              setTimeout(() => setIsLoading(false), 1000);
+            }}
+          />
+        </div>
+      );
+    }
+
+    const pageProps = {
+      tickets: filteredTickets,
+      onSelectTicket: handleTicketSelect,
+      filters: filters,
+      onFilterChange: handleFilterChange,
+      onClearFilters: handleClearFilters,
+    };
+
     switch (activePage) {
       case "dashboard":
-        return <Dashboard onSelectTicket={handleTicketSelect} />;
+        return <Dashboard {...pageProps} />;
       case "all-tickets":
-        return <AllTickets onSelectTicket={handleTicketSelect} />;
+        return <AllTickets {...pageProps} />;
       case "create-ticket":
-        return <CreateTicket />;
-      case "ticket-details":
-<<<<<<< Updated upstream
-        return <TicketDetails ticketId={selectedTicketId} />;
-=======
         return (
-          <TicketDetails
-            ticketId={selectedTicketId}
-            tickets={tickets}
-            user={user}
-            onAddComment={handleAddComment}
+          <CreateTicket
+            onCreateTicket={handleCreateTicket}
+            onCancel={() => setActivePage("dashboard")}
           />
         );
->>>>>>> Stashed changes
+      case "profile":
+        return (
+          <Profile
+            user={user}
+            onUpdateUser={handleUpdateUser}
+            onLogout={handleLogout}
+          />
+        );
+      case "ticket-details":
+        return <TicketDetails ticketId={selectedTicketId} tickets={tickets} />;
       default:
-        return <Dashboard onSelectTicket={handleTicketSelect} />;
+        return <Dashboard {...pageProps} />;
     }
   };
 
@@ -133,10 +230,7 @@ function App() {
         <>
           <Signup
             onNavigateToLogin={() => setActivePage("login")}
-            onSignup={() => {
-              setActivePage("login");
-              showToast("Account created! Please sign in.", "success");
-            }}
+            onSignup={handleSignup}
             showToast={showToast}
           />
           <Toast {...toast} onClose={hideToast} />
@@ -147,10 +241,7 @@ function App() {
       <>
         <Login
           onNavigateToSignup={() => setActivePage("signup")}
-          onLogin={() => {
-            setIsAuthenticated(true);
-            showToast("Welcome back!", "success");
-          }}
+          onLogin={handleLogin}
           showToast={showToast}
         />
         <Toast {...toast} onClose={hideToast} />
@@ -160,7 +251,12 @@ function App() {
 
   return (
     <div className="flex min-h-screen font-sans">
-      <Sidebar activePage={activePage} onPageChange={setActivePage} />
+      <Sidebar
+        activePage={activePage}
+        onPageChange={setActivePage}
+        onLogout={handleLogout}
+        user={user}
+      />
       {renderPage()}
       <Toast {...toast} onClose={hideToast} />
     </div>

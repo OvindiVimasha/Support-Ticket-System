@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthLayout from "../components/ui/AuthLayout";
 import { Input, Label } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
-import { ArrowRight, Eye } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import SignupIllustration from "../assets/Signup.png";
 
 const Signup = ({ onNavigateToLogin, onSignup, showToast }) => {
@@ -53,7 +53,7 @@ const Signup = ({ onNavigateToLogin, onSignup, showToast }) => {
       return;
     }
 
-    onSignup();
+    onSignup({ fullName, email });
   };
 
   return (
